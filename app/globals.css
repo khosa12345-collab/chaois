@@ -1,0 +1,163 @@
+/* ---------- 색상 모음 (페이지의 '옷 색깔') ---------- */
+:root {
+  --배경: #f5f3ef;        /* 아주 연한 웜 그레이 배경 */
+  --배경빛: #e4ecf1;      /* 위쪽에 은은하게 퍼지는 하늘빛 (프로필 그림 색에서 따옴) */
+  --글자: #23272a;        /* 거의 검정에 가까운 진한 글자 */
+  --보조글자: #6b7378;    /* 소개 글 색 */
+  --버튼: #ffffff;        /* 버튼 바탕 */
+  --버튼테두리: #e6e2da;  /* 아주 옅은 테두리 */
+  --강조: #2f3b43;        /* 차분한 먹색 (마우스 올렸을 때) */
+}
+
+/* ---------- 페이지 전체 ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  /* 위쪽만 살짝 하늘빛이 도는 배경 */
+  background:
+    radial-gradient(120% 60% at 50% 0%, var(--배경빛) 0%, rgba(228, 236, 241, 0) 70%),
+    var(--배경);
+  color: var(--글자);
+  font-family: "Pretendard", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  font-size: 20px;          /* 기본 글씨를 크게 */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 가운데 정렬된 내용 (테두리 상자 없이 깔끔하게, 컴퓨터에서도 너무 넓어지지 않게) */
+.내용 {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 64px 20px 56px;
+  text-align: center;
+}
+
+/* ---------- 기능 1. 프로필 영역 ---------- */
+/* 동그란 사진 틀 */
+.사진자리 {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;       /* 동그랗게 */
+  margin: 0 auto;
+  overflow: hidden;         /* 틀 밖으로 나간 부분은 숨김 */
+  /* 사진 둘레에 흰 테 + 아주 옅은 바깥선 */
+  box-shadow: 0 0 0 4px #ffffff, 0 0 0 5px var(--버튼테두리), 0 10px 30px rgba(35, 39, 42, 0.12);
+}
+
+.프로필사진 {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  /* 사진을 살짝 확대해서 얼굴이 가운데 크게 보이도록 (그림 아래 글자는 가려짐) */
+  transform: scale(1.8);
+  transform-origin: 50% 26%;
+}
+
+/* 사진이 없을 때 대신 보이는 글자 동그라미 */
+.대체사진 {
+  width: 100%;
+  height: 100%;
+  background: var(--강조);
+  color: #ffffff;
+  font-size: 54px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.이름 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;  /* 글자 사이를 살짝 좁혀 단정하게 */
+  margin: 28px 0 6px;
+}
+
+.소개 {
+  font-size: 19px;
+  color: var(--보조글자);
+  margin: 0 0 40px;
+}
+
+/* ---------- 기능 2. 링크 버튼 목록 ---------- */
+.버튼자리 {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;                 /* 버튼 사이 간격 */
+}
+
+.링크버튼 {
+  /* 왼쪽 아이콘 | 가운데 버튼 이름 | 오른쪽 클릭 수 (좌우 너비를 같게 해서 이름이 가운데 오도록) */
+  display: grid;
+  grid-template-columns: 64px 1fr 64px;
+  align-items: center;
+  min-height: 68px;          /* 손가락으로 누르기 쉬운 큰 버튼 */
+  padding: 10px 12px;
+  background: var(--버튼);
+  color: var(--글자);
+  border: 1px solid var(--버튼테두리);
+  border-radius: 999px;      /* 알약처럼 둥근 모양 */
+  box-shadow: 0 1px 2px rgba(35, 39, 42, 0.04);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;     /* 밑줄 없애기 */
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+/* 기능 5. 버튼 오른쪽의 클릭 수 */
+.클릭수 {
+  justify-self: end;
+  padding-right: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--보조글자);
+  font-variant-numeric: tabular-nums;  /* 숫자 폭을 일정하게 */
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+/* 아이콘을 작은 동그라미 안에 */
+.아이콘 {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--배경);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: background 0.2s;
+}
+
+/* 기능 4. 마우스를 올리거나 누르면 살짝 색이 변함 */
+.링크버튼:hover,
+.링크버튼:active,
+.링크버튼:focus-visible {
+  background: var(--강조);
+  border-color: var(--강조);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(35, 39, 42, 0.16);
+  outline: none;
+}
+
+.링크버튼:hover .아이콘,
+.링크버튼:active .아이콘,
+.링크버튼:focus-visible .아이콘 {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.링크버튼:hover .클릭수,
+.링크버튼:active .클릭수,
+.링크버튼:focus-visible .클릭수 {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* 휴대폰처럼 좁은 화면 */
+@media (max-width: 520px) {
+  .내용 { padding: 48px 18px 40px; }
+}
