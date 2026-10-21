@@ -1,0 +1,9 @@
+# 비밀 정보 파일 (GitHub에 올리지 않음)
+.env
+.env.local
+atlas-credentials.env
+
+# Next.js 가 자동으로 만드는 폴더 (올리지 않음)
+node_modules/
+.next/
+next-env.d.ts

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -18,7 +18,7 @@
     var 프로필 = {
       이름: "생각한조각",
       소개: "AI로 만드는 짧은 이야기",
-      사진: "profile.jpg"   // 이 폴더에 넣은 사진 파일 이름 (없으면 글자 동그라미가 대신 보입니다)
+      사진: "channels4_profile.jpg"   // 이 폴더에 넣은 사진 파일 이름 (없으면 글자 동그라미가 대신 보입니다)
     };
 
     // 링크 버튼 목록 (위에서부터 순서대로 보입니다)
@@ -32,15 +32,19 @@
     /* ===================== 여기까지만 고치면 됩니다 ===================== */
   </script>
 
+  <!-- 글씨체: 깔끔한 '프리텐다드' (인터넷이 없으면 컴퓨터 기본 글씨체로 보입니다) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
   <style>
     /* ---------- 색상 모음 (페이지의 '옷 색깔') ---------- */
     :root {
-      --배경: #f4f1ec;        /* 따뜻한 베이지 배경 */
-      --글자: #2f3437;        /* 진한 회색 글자 */
-      --보조글자: #5f6b70;    /* 소개 글 색 */
+      --배경: #f5f3ef;        /* 아주 연한 웜 그레이 배경 */
+      --배경빛: #e4ecf1;      /* 위쪽에 은은하게 퍼지는 하늘빛 (프로필 그림 색에서 따옴) */
+      --글자: #23272a;        /* 거의 검정에 가까운 진한 글자 */
+      --보조글자: #6b7378;    /* 소개 글 색 */
       --버튼: #ffffff;        /* 버튼 바탕 */
-      --버튼테두리: #d6d0c4;
-      --강조: #4a6b5d;        /* 차분한 초록 (마우스 올렸을 때) */
+      --버튼테두리: #e6e2da;  /* 아주 옅은 테두리 */
+      --강조: #2f3b43;        /* 차분한 먹색 (마우스 올렸을 때) */
     }
 
     /* ---------- 페이지 전체 ---------- */
@@ -48,90 +52,113 @@
 
     body {
       margin: 0;
-      background: var(--배경);
+      min-height: 100vh;
+      /* 위쪽만 살짝 하늘빛이 도는 배경 */
+      background:
+        radial-gradient(120% 60% at 50% 0%, var(--배경빛) 0%, rgba(228, 236, 241, 0) 70%),
+        var(--배경);
       color: var(--글자);
-      font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      font-family: "Pretendard", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
       font-size: 20px;          /* 기본 글씨를 크게 */
       line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* 가운데 정렬된 내용 상자 = 둥근 테두리 프레임 (컴퓨터에서도 너무 넓어지지 않게) */
+    /* 가운데 정렬된 내용 (테두리 상자 없이 깔끔하게, 컴퓨터에서도 너무 넓어지지 않게) */
     .내용 {
-      max-width: 480px;
-      margin: 24px auto;
-      padding: 44px 28px 32px;
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 64px 20px 56px;
       text-align: center;
-      background: #fbfaf7;                         /* 프레임 안쪽 바탕 */
-      border: 2px solid var(--버튼테두리);         /* 프레임 테두리 선 */
-      border-radius: 28px;                         /* 모서리를 둥글게 */
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);  /* 살짝 떠 보이는 그림자 */
-    }
-
-    /* 휴대폰처럼 좁은 화면에서는 프레임 바깥 여백을 조금 줄임 */
-    @media (max-width: 520px) {
-      .내용 {
-        margin: 16px;
-        padding: 36px 20px 24px;
-      }
     }
 
     /* ---------- 기능 1. 프로필 영역 ---------- */
-    .프로필사진 {
-      width: 150px;
-      height: 150px;
+    /* 동그란 사진 틀 */
+    #사진자리 {
+      width: 132px;
+      height: 132px;
       border-radius: 50%;       /* 동그랗게 */
-      object-fit: cover;
-      border: 4px solid #ffffff;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-      display: block;
       margin: 0 auto;
+      overflow: hidden;         /* 틀 밖으로 나간 부분은 숨김 */
+      /* 사진 둘레에 흰 테 + 아주 옅은 바깥선 */
+      box-shadow: 0 0 0 4px #ffffff, 0 0 0 5px var(--버튼테두리), 0 10px 30px rgba(35, 39, 42, 0.12);
+    }
+
+    .프로필사진 {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      /* 사진을 살짝 확대해서 얼굴이 가운데 크게 보이도록 (그림 아래 글자는 가려짐) */
+      transform: scale(1.8);
+      transform-origin: 50% 26%;
     }
 
     /* 사진이 없을 때 대신 보이는 글자 동그라미 */
     .대체사진 {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      margin: 0 auto;
+      width: 100%;
+      height: 100%;
       background: var(--강조);
       color: #ffffff;
-      font-size: 60px;
-      font-weight: bold;
+      font-size: 54px;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 4px solid #ffffff;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
     }
 
     .이름 {
       font-size: 30px;
-      margin: 20px 0 6px;
+      font-weight: 800;
+      letter-spacing: -0.02em;  /* 글자 사이를 살짝 좁혀 단정하게 */
+      margin: 28px 0 6px;
     }
 
     .소개 {
-      font-size: 20px;
+      font-size: 19px;
       color: var(--보조글자);
-      margin: 0 0 36px;
+      margin: 0 0 40px;
     }
 
     /* ---------- 기능 2. 링크 버튼 목록 ---------- */
+    #버튼자리 {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;                 /* 버튼 사이 간격 */
+    }
+
     .링크버튼 {
+      /* 왼쪽 아이콘 | 가운데 버튼 이름 | 오른쪽 빈칸(좌우 균형용) */
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
+      min-height: 68px;          /* 손가락으로 누르기 쉬운 큰 버튼 */
+      padding: 10px 12px;
+      background: var(--버튼);
+      color: var(--글자);
+      border: 1px solid var(--버튼테두리);
+      border-radius: 999px;      /* 알약처럼 둥근 모양 */
+      box-shadow: 0 1px 2px rgba(35, 39, 42, 0.04);
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-decoration: none;     /* 밑줄 없애기 */
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .링크버튼::after { content: ""; }   /* 오른쪽 빈칸 */
+
+    /* 아이콘을 작은 동그라미 안에 */
+    .아이콘 {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--배경);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      min-height: 68px;          /* 손가락으로 누르기 쉬운 큰 버튼 */
-      margin-bottom: 16px;
-      padding: 14px 20px;
-      background: var(--버튼);
-      color: var(--글자);
-      border: 2px solid var(--버튼테두리);
-      border-radius: 16px;
-      font-size: 22px;
-      font-weight: bold;
-      text-decoration: none;     /* 밑줄 없애기 */
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      font-size: 20px;
+      transition: background 0.2s;
     }
 
     /* 기능 4. 마우스를 올리거나 누르면 살짝 색이 변함 */
@@ -141,9 +168,21 @@
       background: var(--강조);
       border-color: var(--강조);
       color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(35, 39, 42, 0.16);
+      outline: none;
     }
 
-    .아이콘 { font-size: 24px; }
+    .링크버튼:hover .아이콘,
+    .링크버튼:active .아이콘,
+    .링크버튼:focus-visible .아이콘 {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    /* 휴대폰처럼 좁은 화면 */
+    @media (max-width: 520px) {
+      .내용 { padding: 48px 18px 40px; }
+    }
   </style>
 </head>
 <body>
