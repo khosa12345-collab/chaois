@@ -1,5 +1,5 @@
 import { MongoClient, type Db } from 'mongodb'
-import { ensureIndexes } from './todos-repo'
+import { ensureIndexes } from './todos-repo.js'
 
 export const DB_NAME = 'todoapp'
 

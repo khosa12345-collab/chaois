@@ -2,8 +2,8 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { ExpressAuth, getSession } from '@auth/express'
-import { authConfig } from './auth'
-import { todosRouter } from './routes/todos'
+import { authConfig } from './auth.js'
+import { todosRouter } from './routes/todos.js'
 
 // 로그인한 사람만 통과시키고, 세션의 사용자 id를 res.locals.userId 에 넣는다
 async function requireUser(req: Request, res: Response, next: NextFunction) {

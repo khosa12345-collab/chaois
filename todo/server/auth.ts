@@ -1,7 +1,7 @@
 import type { ExpressAuthConfig } from '@auth/express'
 import GitHub from '@auth/express/providers/github'
 import { MongoDBAdapter } from '@auth/mongodb-adapter'
-import { DB_NAME, getClient } from './db'
+import { DB_NAME, getClient } from './db.js'
 
 // GitHub 키는 AUTH_GITHUB_ID / AUTH_GITHUB_SECRET, 서명 키는 AUTH_SECRET 환경 변수에서 읽는다
 export const authConfig: ExpressAuthConfig = {

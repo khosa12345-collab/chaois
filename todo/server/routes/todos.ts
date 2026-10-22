@@ -1,7 +1,7 @@
 import { Router, type NextFunction, type Request, type Response } from 'express'
 import { MongoServerError } from 'mongodb'
-import { getDb } from '../db'
-import * as repo from '../todos-repo'
+import { getDb } from '../db.js'
+import * as repo from '../todos-repo.js'
 
 // requireUser 가 넣어 둔, 서버 세션의 사용자 id. 요청 본문의 값은 쓰지 않는다.
 const userIdOf = (res: Response): string => res.locals.userId
