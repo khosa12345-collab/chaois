@@ -13,3 +13,5 @@ next-env.d.ts
 
 # 클로드 코드 도구가 쓰는 작업 기록 폴더 (올리지 않음)
 .omc/
+.vercel
+.env*
